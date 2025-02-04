@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficas siniestralidad 2024</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            background-color: #fffff;
+        }
+
+        canvas {
+            max-width: 45%;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="lineChartLeft"></canvas>
+<canvas id="lineChartRight"></canvas>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Datos para las gráficas - Izquierda
+     
+        var dataBeryl = [33294.04, 51100.02, 128260.34 ,3506.37, 122313.98, 6274.97, 98965.55, 63890, 327257.9, 26980.98, 13356.92, 387764.74 , 404876.88, 62042.89, 244030.93, 28330.03, 90007.26];
+   
+        
+        // Datos para las gráficas - Derecha
+        var dataCarlotta = [99880850.91, 57267.16, 37698, 52000000, 15824112.08, 28774075.79, 484525.46, 433151.83, 754742.14, 18965.52, 117810492.1, 6254792.37, 599099052.9, 82424.66, 7751656.58, 263788163.8, 3281050.95, 1933059.41, 24461173.53, 758763.11, 2789642.034, 547829.5, 1969800.08, 4399898.72, 24499595.6, 9701968.46, 1226741.72, 1557522.38, 307000849.2, 117157592.1, 4852250.49, 2816284.8, 2454.54, 29045.56, 4235370.08, 8468131.59, 11323307.33, 125925769.5, 63797134.07, 502901.94, 148095166.6, 438067.58, 20680053.52, 575203.25, 21329.55, 121872, 68416091.89, 1793517069, 526613.96, 36968862.09, 1018730902, 1191633773, 4184237.94, 3742875.53, 6322843.863, 33716425.14];
+        
+
+        // Configuración de la gráfica - Izquierda
+        var chartConfigLeft = {
+            type: "line",
+            data: {
+                labels: Array.from({ length: 57 }, (_, i) => i + 1),
+                datasets: [
+                  
+                    { label: "Agrícola", data: dataBeryl, borderColor: "rgba(8, 63, 61, 1)", fill: false }
+              
+
+
+                    
+                ]
+            },
+            options: getChartOptions()
+        };
+
+        // Configuración de la gráfica - Derecha
+        var chartConfigRight = {
+            type: "line",
+            data: {
+                labels: Array.from({ length: 57 }, (_, i) => i + 1),
+                datasets: [
+                    { label: "Patrimonial", data: dataCarlotta, borderColor: "rgba(82, 1, 31, 1)", fill: false }
+                   
+                    
+                ]
+            },
+            options: getChartOptions()
+        };
+
+        // Configuración general de la gráfica
+        function getChartOptions() {
+            return {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        
+                    },
+                    y: {
+                        type: 'linear',
+                        position: 'bottom',
+                     
+                    }
+                },
+                plugins: {
+                    annotation: {
+                        annotations: [{
+                            type: 'line',
+                            mode: 'vertical',
+                            scaleID: 'x',
+                            value: 1,
+                            borderColor: 'black',
+                            borderWidth: 1,
+                            label: {
+                                content: '1',
+                                enabled: true,
+                                position: 'bottom'
+                            }
+                        }]
+                    }
+                }
+            };
+        }
+
+        // Configuración de la primera gráfica
+        var ctxLeft = document.getElementById("lineChartLeft").getContext("2d");
+        var lineChartLeft = new Chart(ctxLeft, chartConfigLeft);
+
+        // Configuración de la segunda gráfica
+        var ctxRight = document.getElementById("lineChartRight").getContext("2d");
+        var lineChartRight = new Chart(ctxRight, chartConfigRight);
+    });
+</script>
+
+</body>
+</html>
