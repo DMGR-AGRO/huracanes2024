@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráficas siniestralidad 2024</title>
+    <title>Siniestralidad</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +15,7 @@
             justify-content: space-around;
             align-items: center;
             flex-wrap: wrap;
-            background-color: #fffff;
+            background-color: #fff;
         }
 
         canvas {
@@ -25,96 +26,121 @@
     </style>
 </head>
 <body>
+    <canvas id="chartLeft"></canvas>
+    <canvas id="chartRight"></canvas>
 
-<canvas id="lineChartLeft"></canvas>
-<canvas id="lineChartRight"></canvas>
+    <script>
+           document.addEventListener("DOMContentLoaded", function () {
+        // Datos de ejemplo
+        var dataAgricola = [33294.04, 51100.02, 128260.34 ,3506.37, 122313.98, 6274.97, 98965.55, 63890, 327257.9, 26980.98, 13356.92, 387764.74 , 404876.88, 62042.89, 244030.93, 28330.03, 90007.26];
+        var dataPatrimonial = [99880850.91, 57267.16, 37698, 52000000, 15824112.08, 28774075.79, 484525.46, 433151.83, 754742.14, 18965.52, 117810492.1, 6254792.37, 599099052.9, 82424.66, 7751656.58, 263788163.8, 3281050.95, 1933059.41, 24461173.53, 758763.11, 2789642.034, 547829.5, 1969800.08, 4399898.72, 24499595.6, 9701968.46, 1226741.72, 1557522.38, 307000849.2, 117157592.1, 4852250.49, 2816284.8, 2454.54, 29045.56, 4235370.08, 8468131.59, 11323307.33, 125925769.5, 63797134.07, 502901.94, 148095166.6, 438067.58, 20680053.52, 575203.25, 21329.55, 121872, 68416091.89, 1793517069, 526613.96, 36968862.09, 1018730902, 1191633773, 4184237.94, 3742875.53, 6322843.863, 33716425.14];
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Datos para las gráficas - Izquierda
-     
-        var dataBeryl = [33294.04, 51100.02, 128260.34 ,3506.37, 122313.98, 6274.97, 98965.55, 63890, 327257.9, 26980.98, 13356.92, 387764.74 , 404876.88, 62042.89, 244030.93, 28330.03, 90007.26];
-   
-        
-        // Datos para las gráficas - Derecha
-        var dataCarlotta = [99880850.91, 57267.16, 37698, 52000000, 15824112.08, 28774075.79, 484525.46, 433151.83, 754742.14, 18965.52, 117810492.1, 6254792.37, 599099052.9, 82424.66, 7751656.58, 263788163.8, 3281050.95, 1933059.41, 24461173.53, 758763.11, 2789642.034, 547829.5, 1969800.08, 4399898.72, 24499595.6, 9701968.46, 1226741.72, 1557522.38, 307000849.2, 117157592.1, 4852250.49, 2816284.8, 2454.54, 29045.56, 4235370.08, 8468131.59, 11323307.33, 125925769.5, 63797134.07, 502901.94, 148095166.6, 438067.58, 20680053.52, 575203.25, 21329.55, 121872, 68416091.89, 1793517069, 526613.96, 36968862.09, 1018730902, 1191633773, 4184237.94, 3742875.53, 6322843.863, 33716425.14];
-        
+        // Etiquetas personalizadas para cada punto
+        var etiquetasAgricola = [
+                "AGR-POL-2022-0013", 
+                "AGR-POL-2023-0001",
+                "AGR-POL-2023-0002",
+                "AGR-POL-2023-0003",
+                "AGR-POL-2023-0004",
+                "AGR-POL-2023-0005",
+                "AGR-POL-2023-0008",
+                "AGR-POL-2023-0009",
+                "AGR-POL-2023-0011",
+                "AGR-POL-2023-0012",
+                "AGR-POL-2023-0013",
+                "AGR-POL-2023-0014",
+                "AGR-POL-2023-0015",
+                "AGR-POL-2023-0016",
+                "AGR-POL-2023-0017",
+                "AGR-POL-2023-0018",
+                "AGR-POL-2023-0019"
+        ];
 
-        // Configuración de la gráfica - Izquierda
-        var chartConfigLeft = {
-            type: "line",
-            data: {
-                labels: Array.from({ length: 57 }, (_, i) => i + 1),
-                datasets: [
-                  
-                    { label: "Agrícola", data: dataBeryl, borderColor: "rgba(8, 63, 61, 1)", fill: false }
-              
+        var etiquetasPatrimonial = [
+            "P-AERO-17/2024", "P-AFAC-01/2023", "P-AFAC-01/2024", 
+            "P-BANOBRAS-01/2024", "P-BIENESTAR-01/2022", "P-C005/2020", 
+            "P-CENAGAS-01/2021", "P-CENAGAS-01/2022", "P-CMM-12/2023", 
+            "P-CNBBBJ-02/2021", "P-COMUNICACION-06/2023", "P-CONAGUA-01/2021", 
+            "P-CONAGUA-01/2022", "P-CONANP-01/2021", "P-CONANP-01/2022", 
+            "P-CONSOLIDADO-01/2023", "P-CULTURA-05/2023", "P-D006/2020", 
+            "P-EDUCACIÓN-03/2023", "P-EMB-20/2024", "P-ESSA-13/2023", 
+            "P-F001/2019", "P-FGR-01/2023", "P-FGR-01/2024", "P-FONATUR-01/2021", 
+            "P-FONATUR-10/2023", "P-FOVISSSTE-01/2021", "P-FOVISSSTE-01/2022", 
+            "P-FOVISSSTE-01/2023", "P-FOVISSSTE-01/2024", "P-GCDMX STC-01/2022", 
+            "P-GN-01/2022", "P-IMSS-01/2021", "P-IMSS-01/2022", "P-IMSS-01/2024", 
+            "P-INAH-01/2021", "P-INAH-01/2022", "P-INAH-15/2023", "P-INFONAVIT-01/2022", 
+            "P-INPI-01/2022", "P-INVESTIGACIÓN-02/2023", "P-P002/2019", "P-P003/2020", 
+            "P-PROFEPA-01/2022", "P-PRONABIVE-01/2022", "P-PRS-01/2022", "P-RURAL-07/2023", 
+            "P-SALUD-04/2023", "P-SAT-01/2022", "P-SEGALMEX-01/2024", "P-SEGURIDAD-08/2023", 
+            "P-SEP-11/2023", "P-SEPOMEX-01/2022", "P-SICT-01/2022", "P-SRE-16/2023", "P-TRENMAYA-01/2023"
+        ];
 
-
-                    
-                ]
-            },
-            options: getChartOptions()
-        };
-
-        // Configuración de la gráfica - Derecha
-        var chartConfigRight = {
-            type: "line",
-            data: {
-                labels: Array.from({ length: 57 }, (_, i) => i + 1),
-                datasets: [
-                    { label: "Patrimonial", data: dataCarlotta, borderColor: "rgba(82, 1, 31, 1)", fill: false }
-                   
-                    
-                ]
-            },
-            options: getChartOptions()
-        };
-
-        // Configuración general de la gráfica
-        function getChartOptions() {
-            return {
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom',
-                        
+        // Función para configurar tooltips personalizados
+        function getChartOptions(etiquetas) {
+    return {
+        responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    // El primer callback es para el valor real del punto
+                    label: function(context) {
+                        var index = context.dataIndex;
+                        var value = context.raw; // Obtiene el valor real del punto
+                        return '$' + value.toLocaleString(); // Muestra el valor arriba
                     },
-                    y: {
-                        type: 'linear',
-                        position: 'bottom',
-                     
+                    // El segundo callback es para la etiqueta, que estará abajo
+                    afterLabel: function(context) {
+                        var index = context.dataIndex;
+                        return etiquetas[index]; // Muestra la etiqueta abajo
                     }
                 },
-                plugins: {
-                    annotation: {
-                        annotations: [{
-                            type: 'line',
-                            mode: 'vertical',
-                            scaleID: 'x',
-                            value: 1,
-                            borderColor: 'black',
-                            borderWidth: 1,
-                            label: {
-                                content: '1',
-                                enabled: true,
-                                position: 'bottom'
-                            }
-                        }]
-                    }
-                }
-            };
+                position: 'nearest', // Asegura que el tooltip esté cerca del punto
+                yAlign: 'bottom', // Coloca el tooltip debajo del punto
+            }
+        },
+        elements: {
+            point: {
+                hoverBorderWidth: 3, // Ajusta el grosor del borde del punto si lo deseas
+                radius: 5, // Ajusta el tamaño del punto
+            }
         }
+    };
+}
 
-        // Configuración de la primera gráfica
-        var ctxLeft = document.getElementById("lineChartLeft").getContext("2d");
-        var lineChartLeft = new Chart(ctxLeft, chartConfigLeft);
 
-        // Configuración de la segunda gráfica
-        var ctxRight = document.getElementById("lineChartRight").getContext("2d");
-        var lineChartRight = new Chart(ctxRight, chartConfigRight);
-    });
-</script>
 
+
+
+
+
+
+
+        // Configurar gráfica izquierda
+        var ctxLeft = document.getElementById("chartLeft").getContext("2d");
+        var chartLeft = new Chart(ctxLeft, {
+            type: "line",
+            data: {
+                labels: Array.from({ length: dataAgricola.length }, (_, i) => i + 1),
+                datasets: [
+                    { label: "Agrícola", data: dataAgricola, borderColor: "rgba(8, 63, 61, 1)", fill: false }
+                ]
+            },
+            options: getChartOptions(etiquetasAgricola)
+        });
+
+        // Configurar gráfica derecha
+        var ctxRight = document.getElementById("chartRight").getContext("2d");
+        var chartRight = new Chart(ctxRight, {
+            type: "line",
+            data: {
+                labels: Array.from({ length: dataPatrimonial.length }, (_, i) => i + 1),
+                datasets: [
+                    { label: "Patrimonial", data: dataPatrimonial, borderColor: "rgba(82, 1, 31, 1)", fill: false }
+                ]
+            },
+            options: getChartOptions(etiquetasPatrimonial)
+        });
+           } );
+    </script>
 </body>
 </html>
