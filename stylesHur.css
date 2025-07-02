@@ -1,0 +1,42 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    
+  
+  }
+  
+  .custom-table {
+    text-align: center;
+    background-color: #f8f9fa; /* gris claro base */
+    border: 1px solid #f8f9fa;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    
+  }
+  
+  .custom-table thead {
+    background-color: #acacac; /* Encabezado más oscuro */
+    font-weight: 600;
+  }
+  
+  .custom-table td,
+  .custom-table th {
+    vertical-align: middle;
+    border: 1px solid #f8f9fa;
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover effect */
+  .custom-table tbody tr:hover {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transform: scale(1.005);
+  }
+  
+  /* Botón */
+  .custom-table .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+  
