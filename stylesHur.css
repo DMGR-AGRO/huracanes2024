@@ -39,4 +39,22 @@ body {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
   }
+.styled-button {
+    background-color: #4CAF50; /* color de fondo */
+color: white; /* color del texto */
+text-align: center; /* centrar el texto */
+text-decoration: none; /* sin subrayado */
+display: inline-block;
+margin: 4px 2px; /* margen */
+transition-duration: 0.4s; /* duración de la transición */
+cursor: pointer; /* cursor */
+border-radius: 5px; /* radio del borde */
+border: 2px solid #4CAF50; /* Borde de 2px, sólido y verde (#4CAF50) */
+padding: 0.25rem 0.5rem;
+font-size: 0.875rem;
+}
+
+.styled-button:hover {
+    background-color: #45a049; /* color de fondo al pasar el ratón */
+}
   
